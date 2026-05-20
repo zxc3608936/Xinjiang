@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "M PLUS Rounded 1c", ui-sans-serif, system-ui, sans-serif;
+  --color-moss: #86C166;
+  --color-snow: #FAFAF7;
+  --color-warmgray: #8C8C88;
+}
+
+body {
+  background-color: var(--color-snow);
+  color: #4A4A48;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.leaflet-tooltip.custom-map-tooltip {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #E8E8E3;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  font-family: var(--font-sans);
+  font-weight: 800;
+  color: #4A4A48;
+  padding: 4px 8px;
+  white-space: nowrap;
+}
+.leaflet-tooltip.custom-map-tooltip::before {
+  display: none;
+}

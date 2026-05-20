@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" rx="8" fill="#81B267"/>
+  <!-- Mountain -->
+  <path d="M16 8 L4 24 L28 24 Z" fill="#527840"/>
+  <path d="M16 8 L28 24 L16 24 Z" fill="#3D5B2F" opacity="0.4"/>
+  <!-- Snow peak -->
+  <path d="M16 8 L10 16 L22 16 Z" fill="#FFFFFF" opacity="0.9"/>
+  <!-- Yurt -->
+  <path d="M10 24 Q16 16 22 24 Z" fill="#FFFFFF"/>
+  <path d="M10 24 L22 24 L22 26 L10 26 Z" fill="#E2E8F0"/>
+  <!-- Sun -->
+  <circle cx="24" cy="9" r="3" fill="#FDE047"/>
+</svg>

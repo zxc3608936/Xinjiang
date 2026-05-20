@@ -1,0 +1,6 @@
+{
+  "name": "北疆12日自由行",
+  "description": "日式風格可愛旅遊單頁應用程式，提供每日行程、天氣、穿著建議",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
