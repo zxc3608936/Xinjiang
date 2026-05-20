@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { MapPin, Navigation, Map, Coffee, ShoppingBag, Camera, Hotel, Plane, Bus, Shirt, CloudSun, ChevronDown, ChevronUp } from 'lucide-react';
+import { MapPin, Navigation, Map, Coffee, ShoppingBag, Camera, Hotel, Plane, Bus, Shirt, CloudSun, ChevronDown, ChevronUp, Sun, Cloud, CloudRain, Wind } from 'lucide-react';
 import { tourData } from '../data';
 import { Category } from '../types';
 
@@ -11,6 +11,14 @@ const categoryConfig: Record<Category, { icon: any; color: string; bg: string; l
   hotel: { icon: Hotel, color: 'text-indigo-600', bg: 'bg-indigo-100', label: '住宿' },
   transport: { icon: Bus, color: 'text-purple-600', bg: 'bg-purple-100', label: '交通' },
   flight: { icon: Plane, color: 'text-teal-600', bg: 'bg-teal-100', label: '航班' },
+};
+
+const getWeatherIcon = (weather: string) => {
+  if (weather.includes('☀️') || weather.includes('晴朗')) return { Icon: Sun, color: 'text-orange-500' };
+  if (weather.includes('🌦️') || weather.includes('陣雨')) return { Icon: CloudRain, color: 'text-blue-500' };
+  if (weather.includes('☁️') || weather.includes('陰')) return { Icon: Cloud, color: 'text-slate-500' };
+  if (weather.includes('💨') || weather.includes('風')) return { Icon: Wind, color: 'text-teal-500' };
+  return { Icon: CloudSun, color: 'text-sky-500' };
 };
 
 export default function ItineraryTab() {
@@ -144,7 +152,10 @@ export default function ItineraryTab() {
               </h2>
               <div className="flex bg-[#FAFAF7] rounded-[16px] p-3 gap-4">
                 <div className="flex-[0.8] flex flex-col items-center justify-center border-r border-[#E8E8E3] gap-1">
-                  <CloudSun size={20} className="text-sky-500" />
+                  {(() => {
+                    const { Icon, color } = getWeatherIcon(currentDay.weather);
+                    return <Icon size={20} className={color} />;
+                  })()}
                   <span className="text-[11px] text-[#8C8C88] font-bold">{currentDay.weather}</span>
                   <span className="text-[13px] font-black text-[#4A4A48] text-center leading-tight">{currentDay.temp.replace(' ', '')}</span>
                 </div>
