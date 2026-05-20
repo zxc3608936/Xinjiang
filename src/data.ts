@@ -25,7 +25,6 @@ export const tourData: DayData[] = [
         title: '啟程：台北松山(TSA) 至 上海虹橋(SHA)',
         desc: '東方航空 MU5098。預計 18:55 抵達上海虹橋機場第一航廈。',
         flightNo: 'MU5098',
-        trackingNo: 'CES6098',
         flightInfo: {
           origin: "台北松山",
           originCode: "TSA",
@@ -428,6 +427,7 @@ export const tourData: DayData[] = [
         title: '中轉：上海浦東(PVG) 至 台北桃園(TPE)',
         desc: '東方航空 MU5007。預計 14:25 抵達台北，為這趟旅程畫下完美句點。',
         flightNo: 'MU5007',
+        trackingNo: 'CES5007',
         flightInfo: {
           origin: "上海浦東",
           originCode: "PVG",

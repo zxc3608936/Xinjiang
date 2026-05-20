@@ -238,7 +238,7 @@ export default function ItineraryTab() {
                             </div>
                             {event.flightNo && (
                                <a 
-                                 href={`https://flightaware.com/live/flight/${event.trackingNo || event.flightNo}`}
+                                 href={`https://flightaware.com/live/flight/${event.trackingNo ? event.trackingNo : (event.flightNo?.startsWith('MU') ? event.flightNo.replace(/^MU/, 'CES') : event.flightNo)}`}
                                  target="_blank"
                                  rel="noreferrer"
                                  className="text-[11px] bg-white border border-sky-100 text-sky-600 px-3 py-1.5 rounded-full font-black flex items-center gap-1.5 hover:bg-sky-50 hover:border-sky-200 transition-colors shadow-sm z-20 relative"
