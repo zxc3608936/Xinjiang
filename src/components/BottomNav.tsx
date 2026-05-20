@@ -15,7 +15,7 @@ export default function BottomNav({ activeTab, setActiveTab }: BottomNavProps) {
   ] as const;
 
   return (
-    <nav className="absolute bottom-0 left-0 right-0 bg-white shadow-[0_-8px_30px_rgb(0,0,0,0.08)] rounded-t-[32px] pb-safe pt-2 px-6 z-20">
+    <nav className="absolute bottom-0 left-0 right-0 bg-white shadow-[0_-8px_30px_rgb(0,0,0,0.08)] rounded-t-[32px] pb-[max(1rem,env(safe-area-inset-bottom))] pt-2 px-6 z-20">
       <div className="flex justify-between items-center py-2 relative">
         {tabs.map((tab) => {
           const isActive = activeTab === tab.id;

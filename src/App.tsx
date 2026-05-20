@@ -13,7 +13,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<TabType>('itinerary');
 
   return (
-    <div className="flex h-screen w-full bg-[#E8E8E3] font-sans overflow-hidden">
+    <div className="flex h-[100dvh] w-full bg-[#E8E8E3] font-sans overflow-hidden">
       {/* Desktop Sidebar */}
       <div className="hidden lg:flex flex-col w-72 bg-[#FAFAF7] border-r border-[#DCDCD8] z-20 shrink-0 shadow-[4px_0_24px_rgb(0,0,0,0.02)]">
         <SideNav activeTab={activeTab} setActiveTab={setActiveTab} />
