@@ -255,6 +255,12 @@ export default function ItineraryTab() {
                           {event.desc}
                         </p>
 
+                        {event.image && (
+                          <div className="w-full h-40 rounded-2xl overflow-hidden mb-3">
+                            <img src={event.image} alt={event.title} className="w-full h-full object-cover shadow-sm" />
+                          </div>
+                        )}
+
                         {event.detailedDesc && (
                           <div className="mb-3">
                             <button 

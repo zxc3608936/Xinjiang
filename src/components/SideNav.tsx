@@ -42,14 +42,6 @@ export default function SideNav({ activeTab, setActiveTab }: SideNavProps) {
         })}
       </nav>
 
-      <div className="mt-auto px-4 pb-4">
-        <div className="bg-white rounded-2xl p-4 shadow-sm border border-[#E8E8E3]">
-          <p className="text-sm text-[#8C8C88] font-bold leading-relaxed">
-            如需協助請聯繫專屬管家<br/>
-            服務時間: 09:00 - 18:00
-          </p>
-        </div>
-      </div>
     </div>
   );
 }

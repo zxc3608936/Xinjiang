@@ -8,6 +8,7 @@ export interface Event {
   desc: string;
   detailedDesc?: string;
   query?: string;
+  image?: string;
   flightNo?: string;
   trackingNo?: string;
   flightInfo?: {
