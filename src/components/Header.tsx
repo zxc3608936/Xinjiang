@@ -33,8 +33,8 @@ export default function Header() {
 
   return (
     <header className="relative bg-[var(--color-moss)] text-white px-5 md:px-10 py-6 md:py-8 rounded-b-[24px] md:rounded-none md:border-b border-[#73A557] shadow-sm z-10 shrink-0 overflow-hidden">
-      <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1200&auto=format&fit=crop" alt="那拉提大草原背景" className="absolute inset-0 w-full h-full object-cover z-0 opacity-40 mix-blend-overlay" />
-      <div className="absolute inset-0 z-0 bg-gradient-to-t from-[var(--color-moss)]/90 via-[var(--color-moss)]/40 to-[var(--color-moss)]/20"></div>
+      <img src="/header.jpeg" alt="那拉提大草原背景" className="absolute inset-0 w-full h-full object-cover z-0 opacity-60" />
+      <div className="absolute inset-0 z-0 bg-gradient-to-t from-[var(--color-moss)]/80 via-[var(--color-moss)]/30 to-transparent"></div>
       
       <div className="flex justify-between items-start relative z-10">
         <div className="flex flex-col gap-1">
