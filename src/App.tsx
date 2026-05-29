@@ -11,6 +11,7 @@ export type TabType = 'itinerary' | 'map' | 'guide' | 'weather';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<TabType>('itinerary');
+  const [selectedDayNum, setSelectedDayNum] = useState<number | null>(null);
 
   return (
     <div className="flex h-[100dvh] w-full bg-[#E8E8E3] font-sans overflow-hidden">
@@ -24,8 +25,20 @@ export default function App() {
         <div className="flex-1 flex flex-col w-full max-w-[800px] mx-auto bg-[var(--color-snow)] shadow-2xl relative overflow-hidden md:rounded-3xl border border-[#DCDCD8]">
           <main id="main-scroll-container" className="flex-1 overflow-y-auto hide-scrollbar pb-[100px] md:pb-0 relative flex flex-col">
             <Header />
-            {activeTab === 'itinerary' && <ItineraryTab />}
-            {activeTab === 'map' && <MapTab />}
+            {activeTab === 'itinerary' && (
+              <ItineraryTab 
+                onShowOnMap={(dayNum) => {
+                  setSelectedDayNum(dayNum);
+                  setActiveTab('map');
+                }} 
+              />
+            )}
+            {activeTab === 'map' && (
+              <MapTab 
+                selectedDayNum={selectedDayNum} 
+                setSelectedDayNum={setSelectedDayNum} 
+              />
+            )}
             {activeTab === 'guide' && <GuideTab />}
             {activeTab === 'weather' && <WeatherTab />}
           </main>

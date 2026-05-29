@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { MapPin, Navigation, Map, Coffee, ShoppingBag, Camera, Hotel, Plane, Bus, Shirt, CloudSun, ChevronDown, ChevronUp, Sun, Cloud, CloudRain, Wind } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 import { tourData } from '../data';
 import { Category } from '../types';
 
@@ -21,7 +22,11 @@ const getWeatherIcon = (weather: string) => {
   return { Icon: CloudSun, color: 'text-sky-500' };
 };
 
-export default function ItineraryTab() {
+interface ItineraryTabProps {
+  onShowOnMap: (dayNum: number) => void;
+}
+
+export default function ItineraryTab({ onShowOnMap }: ItineraryTabProps) {
   const [activeDayIdx, setActiveDayIdx] = useState(0);
   const [expandedEvents, setExpandedEvents] = useState<Record<string, boolean>>({});
   const dayRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -130,10 +135,14 @@ export default function ItineraryTab() {
       <div className="w-full pb-16">
         <div className="max-w-xl mx-auto w-full">
         {tourData.map((currentDay, idx) => (
-          <div
+          <motion.div
             key={currentDay.id}
-            ref={(el) => (dayRefs.current[idx] = el)}
+            ref={(el) => (dayRefs.current[idx] = el as HTMLDivElement | null)}
             data-idx={idx}
+            initial={{ opacity: 0, x: 45 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-12% 0px" }}
+            transition={{ type: 'spring', stiffness: 100, damping: 15 }}
             className="px-6 pt-6 pb-8 flex flex-col gap-5 border-b border-[#E8E8E3] last:border-0 scroll-mt-[160px]"
           >
             <div className="bg-white rounded-[24px] p-5 shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-[#F0F2ED]">
@@ -144,6 +153,13 @@ export default function ItineraryTab() {
                 </div>
                 <div className="mt-2 flex items-center justify-between">
                   <span className="text-[13px] font-black text-[var(--color-moss)] bg-[#F4F7F2] px-3 py-1 rounded-[10px]">Day {currentDay.dayNum}</span>
+                  <button
+                    onClick={() => onShowOnMap(currentDay.dayNum)}
+                    className="text-[12px] font-bold text-[var(--color-moss)] hover:bg-[#F4F7F2] active:bg-[#E8F0E4] transition-all px-3 py-1 rounded-[10px] flex items-center gap-1.5 border border-[var(--color-moss)]/20 shadow-sm cursor-pointer"
+                  >
+                    <Map size={13} className="stroke-[2.5]" />
+                    顯示於地圖
+                  </button>
                 </div>
               </div>
               <h2 className="text-[17px] font-bold text-[#4A4A48] mb-3 flex items-center gap-2 leading-snug">
@@ -276,7 +292,7 @@ export default function ItineraryTab() {
                           <div className="mb-3">
                             <button 
                               onClick={() => toggleExpand(event.id)}
-                              className="text-[12px] font-bold text-[var(--color-moss)] flex items-center gap-1 hover:underline outline-none"
+                              className="text-[12px] font-bold text-[var(--color-moss)] flex items-center gap-1 hover:underline outline-none cursor-pointer"
                             >
                               {expandedEvents[event.id] ? (
                                 <>收起詳細介紹 <ChevronUp size={12} /></>
@@ -284,11 +300,19 @@ export default function ItineraryTab() {
                                 <>展開詳細介紹 <ChevronDown size={12} /></>
                               )}
                             </button>
-                            {expandedEvents[event.id] && (
-                              <div className="mt-2 text-[13px] text-[#6C6C68] font-medium leading-relaxed bg-[#F4F7F2] p-3 rounded-[12px] border border-[#E8F0E4]">
-                                {event.detailedDesc}
-                              </div>
-                            )}
+                            <AnimatePresence initial={false}>
+                              {expandedEvents[event.id] && (
+                                <motion.div
+                                  initial={{ height: 0, opacity: 0 }}
+                                  animate={{ height: "auto", opacity: 1 }}
+                                  exit={{ height: 0, opacity: 0 }}
+                                  transition={{ type: "spring", stiffness: 220, damping: 20 }}
+                                  className="mt-2 text-[13px] text-[#6C6C68] font-medium leading-relaxed bg-[#F4F7F2] p-3 rounded-[12px] border border-[#E8F0E4] overflow-hidden"
+                                >
+                                  {event.detailedDesc}
+                                </motion.div>
+                              )}
+                            </AnimatePresence>
                           </div>
                         )}
 
@@ -311,7 +335,7 @@ export default function ItineraryTab() {
                 );
               })}
             </div>
-          </div>
+          </motion.div>
         ))}
         </div>
       </div>

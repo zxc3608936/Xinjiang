@@ -22,22 +22,64 @@ const locations: { day: string, name: string, coords: [number, number], distance
   { day: 'D10', name: '回程: 烏魯木齊', coords: [43.8350, 87.6250], distance: '約 250 km', estTime: '約 3.5 小時', dir: 'bottom', offset: [0, 10] },
 ];
 
-const customIcon = L.divIcon({
-  className: 'custom-icon',
-  html: `<div style="background-color: #86C166; color: white; width: 24px; height: 24px; border-radius: 50%;border: 3px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.2); margin-left: -12px; margin-top: -12px;"></div>`,
-});
+const isLocForDay = (locDay: string, dayNum: number) => {
+  return locDay.split(',').map(s => s.trim()).includes(`D${dayNum}`);
+};
+
+const getCoordinatesForDay = (dayNum: number): [number, number][] => {
+  const matched = locations.filter(loc => isLocForDay(loc.day, dayNum));
+  
+  if (matched.length === 0) {
+    // Fallback logic for days of transit (not inside D2-D10 in locations list)
+    if (dayNum === 1 || dayNum === 11 || dayNum === 12) {
+      // Focus on Urumqi as the entry/exit point of Xinjiang
+      return [[43.8256, 87.6168]];
+    }
+    // Return all if completely unknown
+    return locations.map(l => l.coords);
+  }
+  
+  return matched.map(m => m.coords);
+};
+
+const getCustomIcon = (isHighlighted: boolean) => {
+  const color = isHighlighted ? '#F59E0B' : '#86C166'; // Amber vs Moss green
+  const scale = isHighlighted ? 'scale(1.2)' : 'scale(1)';
+  const shadow = isHighlighted ? '0 4px 12px rgba(245,158,11,0.6)' : '0 2px 4px rgba(0,0,0,0.2)';
+  return L.divIcon({
+    className: 'custom-icon',
+    html: `<div style="background-color: ${color}; color: white; width: 24px; height: 24px; border-radius: 50%; border: 3px solid white; box-shadow: ${shadow}; margin-left: -12px; margin-top: -12px; transform: ${scale}; transition: all 0.3s ease-in-out;"></div>`,
+  });
+};
 
 const polylinePositions = locations.map(loc => loc.coords);
 
-function MapBounds() {
+function MapFocusHandler({ selectedDayNum }: { selectedDayNum: number | null }) {
   const map = useMap();
   useEffect(() => {
-    map.fitBounds(L.latLngBounds(polylinePositions), { padding: [40, 40] });
-  }, [map]);
+    if (selectedDayNum === null) {
+      map.fitBounds(L.latLngBounds(polylinePositions), { padding: [40, 40], animate: true, duration: 1 });
+    } else {
+      const coords = getCoordinatesForDay(selectedDayNum);
+      if (coords.length > 0) {
+        if (coords.length === 1) {
+          map.setView(coords[0], 9, { animate: true, duration: 1 });
+        } else {
+          const bounds = L.latLngBounds(coords);
+          map.fitBounds(bounds, { padding: [50, 50], maxZoom: 10, animate: true, duration: 1 });
+        }
+      }
+    }
+  }, [selectedDayNum, map]);
   return null;
 }
 
-export default function MapTab() {
+interface MapTabProps {
+  selectedDayNum: number | null;
+  setSelectedDayNum: (dayNum: number | null) => void;
+}
+
+export default function MapTab({ selectedDayNum, setSelectedDayNum }: MapTabProps) {
   return (
     <div className="flex flex-col h-full bg-[var(--color-snow)] relative overflow-hidden">
       <div className="flex-1 min-h-[400px] border-b border-[#E8E8E3] relative z-0">
@@ -85,16 +127,36 @@ export default function MapTab() {
             );
           })}
 
-          {locations.map((loc, idx) => (
-            <Marker key={idx} position={loc.coords} icon={customIcon}>
-              <Tooltip permanent direction={loc.dir} offset={loc.offset} className="custom-map-tooltip">
-                <span className="text-[11px] font-black text-[var(--color-moss)] mr-1.5">{loc.day}</span>
-                <span className="text-[13px]">{loc.name}</span>
-              </Tooltip>
-            </Marker>
-          ))}
-          <MapBounds />
+          {locations.map((loc, idx) => {
+            const isHighlighted = selectedDayNum !== null && isLocForDay(loc.day, selectedDayNum);
+            return (
+              <Marker key={idx} position={loc.coords} icon={getCustomIcon(isHighlighted)}>
+                <Tooltip permanent direction={loc.dir} offset={loc.offset} className={`custom-map-tooltip ${isHighlighted ? 'border-amber-500 font-extrabold shadow-md z-[500]' : ''}`}>
+                  <span className="text-[11px] font-black text-[var(--color-moss)] mr-1.5">{loc.day}</span>
+                  <span className="text-[13px]">{loc.name}</span>
+                </Tooltip>
+              </Marker>
+            );
+          })}
+          <MapFocusHandler selectedDayNum={selectedDayNum} />
         </MapContainer>
+
+        {selectedDayNum !== null && (
+          <div className="absolute top-4 left-4 z-[400] bg-white/95 backdrop-blur-md px-3 py-2 rounded-xl shadow-lg border border-amber-200 flex items-center gap-2 animate-fade-in animate-duration-300">
+            <span className="text-xs font-black text-amber-600 bg-amber-50 px-2.5 py-1 rounded-lg animate-pulse-subtle">
+              Day {selectedDayNum}
+            </span>
+            <span className="text-xs font-extrabold text-[#4A4A48] select-none">
+              已聚焦當日景點
+            </span>
+            <button
+              onClick={() => setSelectedDayNum(null)}
+              className="text-[11px] text-[#8C8C88] hover:text-amber-600 font-black ml-2 underline cursor-pointer"
+            >
+              顯示全圖
+            </button>
+          </div>
+        )}
       </div>
 
       <div className="flex-1 overflow-y-auto hide-scrollbar bg-white p-6 md:p-8">
