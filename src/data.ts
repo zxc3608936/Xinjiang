@@ -81,8 +81,8 @@ export const tourData: DayData[] = [
         id: 'e2-3',
         time: '15:00',
         category: 'hotel',
-        title: '入住烏魯木齊市區飯店',
-        desc: '烏魯木齊高鐵站OBOR家酒店 或 紅光山國際會展中心暻閣酒店。全天自由活動，餐券自理。',
+        title: '入住烏魯木齊高鐵站OBOR家酒店',
+        desc: '烏魯木齊高鐵站OBOR家酒店 (OBOR\'s Home Hotel)\n地址: 高鐵北六路99號。全天自由活動，餐券自理。',
         query: '乌鲁木齐高铁站OBOR家酒店'
       }
     ]
@@ -122,7 +122,7 @@ export const tourData: DayData[] = [
         time: '19:00',
         category: 'hotel',
         title: '抵達阿勒泰市並入住',
-        desc: '阿勒泰錦江國際酒店 或 尊茂寶石酒店或同級飯店。',
+        desc: '阿勒泰錦江國際酒店 (Jinjiang Hotel Altay)\n地址: 樺林西路16號。',
         query: '阿勒泰锦江国际酒店'
       }
     ]
@@ -161,7 +161,7 @@ export const tourData: DayData[] = [
         time: '19:00',
         category: 'hotel',
         title: '入住禾木景區內木屋',
-        desc: '禾盛山莊 或 金蓮花酒店。體驗最道地的圖瓦人木屋風情，夜間氣溫低請注意保暖。',
+        desc: '禾盛山莊(禾木景區店) (Hesheng Villa)\n地址: 禾木鄉禾木村入口服務區。\n體驗最道地的圖瓦人木屋風情，夜間氣溫低請注意保暖。',
         query: '禾木村'
       }
     ]
@@ -201,7 +201,7 @@ export const tourData: DayData[] = [
         time: '20:00',
         category: 'hotel',
         title: '入住布爾津5鑽飯店',
-        desc: '布爾津喀納斯白樺林野奢營地。',
+        desc: '布爾津喀納斯白樺林野奢營地 (Birch forest wild luxury camp in Buerjin Kanas)\n地址: 國道G217線旁。',
         query: '布尔津喀纳斯白桦林野奢营地'
       }
     ]
@@ -231,7 +231,7 @@ export const tourData: DayData[] = [
         time: '19:30',
         category: 'hotel',
         title: '入住胡楊河市/獨山子區飯店',
-        desc: '胡楊河開元名庭大酒店 或 獨山子瑪依塔柯酒店。',
+        desc: '胡楊河開元名庭大酒店 (MAISON NEW CENTURY)\n地址: 塔河南街588號。',
         query: '胡杨河开元名庭大酒店'
       }
     ]
@@ -269,7 +269,7 @@ export const tourData: DayData[] = [
         time: '20:00',
         category: 'hotel',
         title: '入住特色營地',
-        desc: '飛馳巴音度假營地，享受夜晚觀星。',
+        desc: '飛馳巴音度假營地(巴音布魯克景區店) (Feichi Bayin Self-driving Camp)\n地址: 巴音布魯克鎮東歸西路002號。\n享受夜晚觀星。',
         query: '飞驰巴音度假营地'
       }
     ]
@@ -299,7 +299,7 @@ export const tourData: DayData[] = [
         time: '21:30',
         category: 'hotel',
         title: '入住伊寧市飯店',
-        desc: '伊寧溫州國際大酒店 或 伊寧伊犁河賓館。',
+        desc: '伊寧溫州國際大酒店(伊寧機場店) (Wenzhou International Hotel)\n地址: 解放西路868號。',
         query: '伊宁温州国际大酒店'
       }
     ]
@@ -329,7 +329,7 @@ export const tourData: DayData[] = [
         time: '21:00',
         category: 'hotel',
         title: '入住胡楊河或奎屯市區飯店',
-        desc: '奎屯金陵國際飯店 或 胡楊河開元名庭大酒店。',
+        desc: '奎屯金陵國際飯店 (Kuitun Jinling International Hotel)\n地址: 阿克蘇東路41號。',
         query: '奎屯金陵国际饭店'
       }
     ]
@@ -359,7 +359,7 @@ export const tourData: DayData[] = [
         time: '19:00',
         category: 'hotel',
         title: '返回烏魯木齊',
-        desc: '入住紅光山國際會展中心暻閣酒店 或 麗斯頓國際酒店。',
+        desc: '烏魯木齊紅光山國際會展中心暻閣酒店 (Urumqi Hongguangshan International Convention and Exhibition Center Pavilion Hotel)\n地址: 紅光山路3211號鉑悅府商業中心B2。',
         query: '乌鲁木齐红光山国际会展中心'
       }
     ]

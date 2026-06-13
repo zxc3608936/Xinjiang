@@ -1,7 +1,12 @@
 import { CloudSunRain, ThermometerSun, Wind } from 'lucide-react';
 import { tourData } from '../data';
+import { DayData } from '../types';
 
-export default function WeatherTab() {
+interface WeatherTabProps {
+  itinerary?: DayData[];
+}
+
+export default function WeatherTab({ itinerary = tourData }: WeatherTabProps) {
   return (
     <div className="px-6 pt-6 pb-12 flex flex-col gap-5 max-w-xl mx-auto w-full">
        <h2 className="text-xl font-bold text-[#4A4A48] flex items-center gap-2 mb-2">
@@ -24,7 +29,7 @@ export default function WeatherTab() {
       <h3 className="font-bold text-sm text-[#8C8C88] pl-2">每日簡易預報</h3>
 
       <div className="space-y-3">
-        {tourData.map((day) => (
+        {itinerary.map((day) => (
           <div key={day.id} className="bg-white rounded-[20px] p-4 flex items-center justify-between shadow-[0_2px_10px_rgb(0,0,0,0.02)]">
             <div className="flex items-center gap-3">
               <div className="w-12 text-center text-xs font-bold bg-[#FAFAF7] text-[var(--color-moss)] py-1.5 rounded-lg">

@@ -6,12 +6,32 @@ import ItineraryTab from './components/ItineraryTab';
 import MapTab from './components/MapTab';
 import GuideTab from './components/GuideTab';
 import WeatherTab from './components/WeatherTab';
+import { tourData as initialTourData } from './data';
+import { DayData } from './types';
 
 export type TabType = 'itinerary' | 'map' | 'guide' | 'weather';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<TabType>('itinerary');
   const [selectedDayNum, setSelectedDayNum] = useState<number | null>(null);
+
+  const [itinerary, setItinerary] = useState<DayData[]>(() => {
+    try {
+      const saved = localStorage.getItem('custom_tour_itinerary_v2');
+      return saved ? JSON.parse(saved) : initialTourData;
+    } catch {
+      return initialTourData;
+    }
+  });
+
+  const handleUpdateItinerary = (newItinerary: DayData[]) => {
+    setItinerary(newItinerary);
+    try {
+      localStorage.setItem('custom_tour_itinerary_v2', JSON.stringify(newItinerary));
+    } catch (e) {
+      console.error('Error saving itinerary to localStorage:', e);
+    }
+  };
 
   return (
     <div className="flex h-[100dvh] w-full bg-[#E8E8E3] font-sans overflow-hidden">
@@ -27,6 +47,8 @@ export default function App() {
             <Header />
             {activeTab === 'itinerary' && (
               <ItineraryTab 
+                itinerary={itinerary}
+                onUpdateItinerary={handleUpdateItinerary}
                 onShowOnMap={(dayNum) => {
                   setSelectedDayNum(dayNum);
                   setActiveTab('map');
@@ -40,7 +62,7 @@ export default function App() {
               />
             )}
             {activeTab === 'guide' && <GuideTab />}
-            {activeTab === 'weather' && <WeatherTab />}
+            {activeTab === 'weather' && <WeatherTab itinerary={itinerary} />}
           </main>
 
           {/* Mobile Bottom Nav */}
