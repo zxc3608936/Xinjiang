@@ -17,7 +17,7 @@ export default function App() {
 
   const [itinerary, setItinerary] = useState<DayData[]>(() => {
     try {
-      const saved = localStorage.getItem('custom_tour_itinerary_v2');
+      const saved = localStorage.getItem('custom_tour_itinerary_v3');
       return saved ? JSON.parse(saved) : initialTourData;
     } catch {
       return initialTourData;
@@ -27,7 +27,7 @@ export default function App() {
   const handleUpdateItinerary = (newItinerary: DayData[]) => {
     setItinerary(newItinerary);
     try {
-      localStorage.setItem('custom_tour_itinerary_v2', JSON.stringify(newItinerary));
+      localStorage.setItem('custom_tour_itinerary_v3', JSON.stringify(newItinerary));
     } catch (e) {
       console.error('Error saving itinerary to localStorage:', e);
     }
